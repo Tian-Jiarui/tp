@@ -61,6 +61,22 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Person addTag(Tag tag) {
+        Set<Tag> newTags = new HashSet<>(tags);
+        newTags.add(tag);
+        return new Person(name, phone, email, address, newTags);
+    }
+
+    public Person removeTag(Tag tag) {
+        Set<Tag> newTags = new HashSet<>(tags);
+        newTags.remove(tag);
+        return new Person(name, phone, email, address, newTags);
+    }
+
+    public boolean hasTag(Tag tag) {
+        return tags.contains(tag);
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
