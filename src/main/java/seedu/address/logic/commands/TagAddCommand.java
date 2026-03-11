@@ -14,20 +14,35 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Adds a tag to a contact in the address book.
+ * The contact is identified by its index in the filtered person list.
+ * The tag must be valid (1-20 characters, alphanumeric or hyphens) and not already exist for the contact.
+ */
 public class TagAddCommand extends Command {
-    private final Tag tag;
-    private final Index index;
-
     public static final String COMMAND_WORD = "tagadd";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to a contact in the address book.\n" +
-        "Parameters: INDEX " + PREFIX_TAG + "TAG\n" +
-        "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "classmate";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to a contact in the address book.\n"
+        + "Parameters: INDEX " + PREFIX_TAG + "TAG\n"
+        + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "classmate";
 
     public static final String MESSAGE_TAG_PERSON_SUCCESS = "Added tag '%1$s' to %2$s";
     public static final String MESSAGE_TAG_PERSON_FAILURE = "Invalid value: tag already exists for this contact.";
-    public static final String MESSAGE_INVALID_PERSON= "The person does not exist in the address book.";
+    public static final String MESSAGE_INVALID_PERSON = "The person does not exist in the address book.";
     public static final String MESSAGE_INVALID_TAG = "Invalid value: tag must be 1–20 chars (a-z,0-9,-).";
 
+    /** The tag to be added to the contact. */
+    private final Tag tag;
+
+    /** The index of the contact in the filtered person list. */
+    private final Index index;
+
+
+    /**
+     * Constructs a TagAddCommand to add a tag to a contact.
+     *
+     * @param tag the tag to be added
+     * @param index the index of the contact in the filtered person list
+     */
     public TagAddCommand(Tag tag, Index index) {
         this.tag = tag;
         this.index = index;
@@ -38,7 +53,7 @@ public class TagAddCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size() ||  index.getOneBased() <= 0) {
+        if (index.getZeroBased() >= lastShownList.size() || index.getOneBased() <= 0) {
             throw new CommandException(MESSAGE_INVALID_PERSON);
         }
 

@@ -61,12 +61,32 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Returns a new {@code Person} with the specified {@code tag} added.
+     * <p>
+     * This method does not modify the current {@code Person} object. Instead,
+     * it creates a new {@code Person} instance with all existing fields unchanged
+     * except for the {@code tags}, which includes the newly added {@code tag}.
+     *
+     * @param tag the {@code Tag} to add to the person's tags
+     * @return a new {@code Person} instance with the added tag
+     */
     public Person addTag(Tag tag) {
         Set<Tag> newTags = new HashSet<>(tags);
         newTags.add(tag);
         return new Person(name, phone, email, address, newTags);
     }
 
+    /**
+     * Returns a new {@code Person} with the specified {@code tag} removed.
+     * <p>
+     * This method does not modify the current {@code Person} object. Instead,
+     * it creates a new {@code Person} instance with all existing fields unchanged
+     * except for the {@code tags}, which excludes the specified {@code tag}.
+     *
+     * @param tag the {@code Tag} to remove from the person's tags
+     * @return a new {@code Person} instance with the tag removed
+     */
     public Person removeTag(Tag tag) {
         Set<Tag> newTags = new HashSet<>(tags);
         newTags.remove(tag);
