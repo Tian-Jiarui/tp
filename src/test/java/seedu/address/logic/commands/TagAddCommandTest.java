@@ -32,7 +32,7 @@ public class TagAddCommandTest {
 
         TagAddCommand command = new TagAddCommand(tag, index);
         String expectedMessage = String.format(
-                TagAddCommand.MESSAGE_TAG_PERSON_SUCCESS, tag, taggedPerson.getName());
+                TagAddCommand.MESSAGE_TAG_PERSON_SUCCESS, tag.tagName, taggedPerson.getName());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
@@ -46,7 +46,7 @@ public class TagAddCommandTest {
         TagAddCommand command = new TagAddCommand(tag, outOfBoundIndex);
 
         assertThrows(CommandException.class,
-                TagAddCommand.MESSAGE_TAG_PERSON_FAILURE, () -> command.execute(model));
+                TagAddCommand.MESSAGE_INVALID_PERSON, () -> command.execute(model));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class TagAddCommandTest {
         TagAddCommand command = new TagAddCommand(invalidTag, index);
 
         assertThrows(CommandException.class,
-                TagAddCommand.MESSAGE_TAG_PERSON_FAILURE, () -> command.execute(model));
+                TagAddCommand.MESSAGE_INVALID_TAG, () -> command.execute(model));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class TagAddCommandTest {
 
         TagAddCommand command = new TagAddCommand(newTag, lastIndex);
         String expectedMessage = String.format(
-                TagAddCommand.MESSAGE_TAG_PERSON_SUCCESS, newTag, taggedPerson.getName());
+                TagAddCommand.MESSAGE_TAG_PERSON_SUCCESS, newTag.tagName, taggedPerson.getName());
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
