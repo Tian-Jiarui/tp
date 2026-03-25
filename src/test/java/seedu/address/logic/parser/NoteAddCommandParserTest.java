@@ -28,7 +28,6 @@ public class NoteAddCommandParserTest {
 
     @Test
     public void parse_noteTextWithColons_success() {
-        // Colons after the first ": " should be treated as note content
         assertParseSuccess(parser, "1 note/Note with: extra: colons",
                 new NoteAddCommand(INDEX_FIRST_PERSON, "Note with: extra: colons"));
     }
@@ -67,7 +66,7 @@ public class NoteAddCommandParserTest {
     @Test
     public void parse_wordLimitExceeded_throwsParseException() {
         String tooLong = "word ".repeat(NoteAddCommandParser.MAX_WORD_COUNT + 1).trim();
-        assertParseFailure(parser, "1: " + tooLong,
+        assertParseFailure(parser, "1 note/" + tooLong,
                 NoteAddCommandParser.MESSAGE_WORD_LIMIT_EXCEEDED);
     }
 }
