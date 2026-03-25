@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class NoteAddCommandParser implements Parser<NoteAddCommand> {
 
-    public static final int MAX_WORD_COUNT = 100;
+    public static final int MAX_WORD_COUNT = 200;
     public static final String MESSAGE_WORD_LIMIT_EXCEEDED =
             "Note exceeds the maximum word count of " + MAX_WORD_COUNT + " words.";
 

@@ -22,7 +22,7 @@ public class NoteAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a note to the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX " + PREFIX_NOTE + "NOTE (max 100 words)\n"
+            + "Parameters: INDEX " + PREFIX_NOTE + "NOTE (max 200 words)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_NOTE + "Met at career fair";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
@@ -56,7 +56,7 @@ public class NoteAddCommand extends Command {
         if (note.trim().isEmpty()) {
             throw new CommandException("Note cannot be empty.");
         }
-        if (note.trim().split("\\s+").length > 100) {
+        if (note.trim().split("\\s+").length > 200) {
             throw new CommandException(NoteAddCommandParser.MESSAGE_WORD_LIMIT_EXCEEDED);
         }
 
