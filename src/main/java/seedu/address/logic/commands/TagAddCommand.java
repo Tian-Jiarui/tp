@@ -75,7 +75,10 @@ public class TagAddCommand extends Command {
             personAtIndex.getPhone(),
             personAtIndex.getEmail(),
             personAtIndex.getAddress(),
-            updatedTags
+            updatedTags,
+            personAtIndex.getFollowUpDate(),
+            personAtIndex.getNotes(),
+            personAtIndex.getCircle()
         );
 
         model.setPerson(personAtIndex, editedPerson);

@@ -1,8 +1,11 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,6 +32,9 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String followUpDate;
+    private final String notes;
+    private final String circle;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -36,7 +42,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("followUpDate") String followUpDate,
+            @JsonProperty("notes") String notes, @JsonProperty("circle") String circle) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,6 +51,9 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.followUpDate = followUpDate;
+        this.notes = notes;
+        this.circle = circle;
     }
 
     /**
@@ -57,6 +67,13 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        followUpDate = source.getFollowUpDate()
+                .map(LocalDate::toString)
+                .orElse(null);
+        notes = source.getNotes()
+                .orElse(null);
+        circle = source.getCircle()
+                .orElse(null);
     }
 
     /**
@@ -103,7 +120,29 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        Optional<LocalDate> modelFollowUpDate = Optional.empty();
+        if (followUpDate != null) {
+            try {
+                modelFollowUpDate = Optional.of(LocalDate.parse(followUpDate));
+            } catch (DateTimeParseException e) {
+                throw new IllegalValueException("Invalid follow-up date format. Use YYYY-MM-DD.");
+            }
+        }
+
+        Optional<String> modelNotes = Optional.ofNullable(notes);
+
+        Optional<String> modelCircle = Optional.empty();
+        if (circle != null) {
+            List<String> validCircles = List.of("client", "prospect", "friend");
+            if (!validCircles.contains(circle.toLowerCase())) {
+                throw new IllegalValueException("Circle must be one of: client, prospect, friend.");
+            }
+            modelCircle = Optional.of(circle.toLowerCase());
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelFollowUpDate,
+                modelNotes, modelCircle);
     }
 
 }

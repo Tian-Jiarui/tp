@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -89,8 +90,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a {@code Person} with the current fields.
+     * Optional fields {@code followUpDate}, {@code notes}, and {@code circle}
+     * are set to {@code Optional.empty()} by default.
+     *
+     * @return a {@code Person} with the specified fields
+     */
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags,
+                Optional.empty(), Optional.empty(), Optional.empty());
     }
 
 }

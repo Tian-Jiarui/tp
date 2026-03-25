@@ -2,9 +2,11 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -24,17 +26,24 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Optional<LocalDate> followUpDate;
+    private final Optional<String> notes;
+    private final Optional<String> circle;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<LocalDate> followUpDate,
+                  Optional<String> notes, Optional<String> circle) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.followUpDate = Objects.requireNonNullElse(followUpDate, Optional.empty());
+        this.notes = Objects.requireNonNullElse(notes, Optional.empty());
+        this.circle = Objects.requireNonNullElse(circle, Optional.empty());
     }
 
     public Name getName() {
@@ -51,6 +60,18 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Optional<LocalDate> getFollowUpDate() {
+        return followUpDate;
+    }
+
+    public Optional<String> getNotes() {
+        return notes;
+    }
+
+    public Optional<String> getCircle() {
+        return circle;
     }
 
     /**
@@ -74,7 +95,7 @@ public class Person {
     public Person addTag(Tag tag) {
         Set<Tag> newTags = new HashSet<>(tags);
         newTags.add(tag);
-        return new Person(name, phone, email, address, newTags);
+        return new Person(name, phone, email, address, newTags, followUpDate, notes, circle);
     }
 
     /**
@@ -90,7 +111,7 @@ public class Person {
     public Person removeTag(Tag tag) {
         Set<Tag> newTags = new HashSet<>(tags);
         newTags.remove(tag);
-        return new Person(name, phone, email, address, newTags);
+        return new Person(name, phone, email, address, newTags, followUpDate, notes, circle);
     }
 
     public boolean hasTag(Tag tag) {
@@ -140,13 +161,16 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && followUpDate.equals(otherPerson.followUpDate)
+                && notes.equals(otherPerson.notes)
+                && circle.equals(otherPerson.circle);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, followUpDate, notes, circle);
     }
 
     @Override
@@ -157,6 +181,9 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("followUpDate", followUpDate)
+                .add("notes", notes)
+                .add("circle", circle)
                 .toString();
     }
 
