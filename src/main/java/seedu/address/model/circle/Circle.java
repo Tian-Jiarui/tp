@@ -11,7 +11,8 @@ import java.util.Set;
  */
 public class Circle {
 
-    public static final String MESSAGE_CONSTRAINTS = "Circle names can only be friend, prospect or lead (case-insensitive).";
+    public static final String MESSAGE_CONSTRAINTS = "Circle names can only be"
+        + "friend, prospect or lead (case-insensitive).";
 
     private static final Set<String> ALLOWED_CIRCLES = Set.of("friend", "prospect", "lead");
 
