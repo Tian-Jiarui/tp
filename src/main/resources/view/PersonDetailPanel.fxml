@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10">
+    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+    <Label text="Contact Details" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="8">
+        <Label text="Name:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="name"/>
+    </HBox>
+
+    <HBox spacing="8">
+        <Label text="Phone:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="phone"/>
+    </HBox>
+
+    <HBox spacing="8">
+        <Label text="Email:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="email"/>
+    </HBox>
+
+    <HBox spacing="8">
+        <Label text="Address:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="address"/>
+    </HBox>
+
+    <HBox fx:id="notesRow" spacing="8">
+        <Label text="Notes:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="notes" wrapText="true"/>
+    </HBox>
+
+    <HBox fx:id="followUpRow" spacing="8">
+        <Label text="Follow Up:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="followUpDate"/>
+    </HBox>
+
+    <HBox fx:id="circleRow" spacing="8">
+        <Label text="Circle:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="circle"/>
+    </HBox>
+
+</VBox>
