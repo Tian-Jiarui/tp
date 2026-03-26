@@ -112,7 +112,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Note} of the {@code Person} that we are building.
      */
-    public PersonBuilder withNote(Note note) {
+    public PersonBuilder withNotes(Note note) {
         this.notes = Optional.of(note);
         return this;
     }
