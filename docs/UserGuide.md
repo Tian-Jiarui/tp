@@ -14,6 +14,22 @@ FAM is optimized for use via a **Command Line Interface (CLI)**. So if you type 
 ### Table Of Contents 
 * [Quick start](#quick-start)
 * [Features](#features)
+    * [Help](#viewing-help--help)
+    * [Add](#adding-a-person-add)
+    * [List](#listing-all-persons--list)
+    * [Edit](#editing-a-person--edit)
+    * [Find](#locating-persons-by-name-find)
+    * [View](#viewing-a-person--view)
+    * [Delete](#deleting-a-person--delete)
+    * [Tag Add](#adding-a-tag--tagadd)
+    * [Tag Remove](#removing-a-tag--tagrm)
+    * [Note Add](#add-notes-to-a-person--note)
+    * [Note Clear](#clear-a-persons-notes--noteclear)
+    * [Circle Add](#add-a-circle-to-a-person--circleadd)
+    * [Circle Remove](#removing-a-circle-to-a-person--circlerm)
+    * [Circle Filter](#filtering-circle--circlfilter)
+    * [Clear](#clearing-all-entries--clear)
+    * [Exit](#exiting-the-program--exit)
 * [FAQ](#faq)
 * [Known issues](#known-issues)
 * [Command summary](#command-summary)
@@ -70,7 +86,7 @@ and run `java -jar fam.jar` to run the application.<br>
   e.g. `[t/TAG]…​` can be omitted, or used as `t/friend`, `t/friend t/family`.
 
 * Parameters can be in any order.<br>
-  e.g. `n/NAME p/PHONE_NUMBER` is the same as `p/PHONE_NUMBER n/NAME`. 
+  e.g. `n/NAME p/PHONE_NUMBER` is the same as `p/PHONE_NUMBER n/NAME`.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) 
 will be ignored.<br>
@@ -79,6 +95,7 @@ will be ignored.<br>
 * If you are using a PDF version of this document, be careful when copying and pasting commands 
 that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
+
 
 ### Viewing help : `help`
 
@@ -103,11 +120,13 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
+
 
 ### Editing a person : `edit`
 
@@ -121,6 +140,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+* You cannot edit a person's circle using the `edit` command. To edit a person's circle label, you will need to use the [`circleadd`](#add-a-circle-to-a-person--circleadd) or [`circlerm`](#removing-a-circle-to-a-person--circlerm) command.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -144,6 +164,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+
 ### Viewing a person : `view`
 
 Shows the specified person.
@@ -157,6 +178,7 @@ Format: `view INDEX`
 Examples:
 * `list` followed by `view 2` shows the 2nd person in the address book.
 * `find Betsy` followed by `view 1` shows the 1st person in the results of the `find` command.
+
 
 ### Deleting a person : `delete`
 
@@ -173,6 +195,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+
 ### Adding a tag : `tagadd`
 
 Adds a tag to an existing person in the address book.
@@ -186,6 +209,7 @@ Format: `tagadd INDEX t/TAG`
 
 Examples:
 * `tagadd 1 t/friend` adds the tag `friend` to the 1st person in the address book.
+
 
 ### Removing a tag : `tagrm`
 
@@ -201,6 +225,7 @@ Format: `tagrm INDEX t/TAG`
 Examples:
 * `tagrm 1 t/friend` removes the tag `friend` from the 1st person in the address book.
 
+
 ### Add notes to a person : `note`
 
 Adds a note to an existing person in the address book.
@@ -214,6 +239,7 @@ Format: `note INDEX: NOTE`
 Examples:  
 * `note 1: Family of four, looking for family coverage` adds the note `Family of four, looking for family coverage` to the 1st person in the list.
 
+
 ### Clear a person's notes : `noteclear`
 
 Clears all notes of a person in the address book.
@@ -226,11 +252,65 @@ Format: `noteclear INDEX`
 Examples:
 * `noteclear 1` clears all notes of the 1st person in the list.
 
+
+### Add a circle to a person : `circleadd`
+
+Adds a circle to an existing person in the address book. 
+Circle here referring to the type of relationship user have with the contact.
+
+Format: `circleadd INDEX c/CIRCLE`
+
+* The circle will be added to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* There are only 3 types of circles: `client`, `prospect` and `friend`. The circle must be one of these 3 types. Any other name to `circleadd` will be rejected.
+* * Only 1 circle can be added at a time to 1 contact only.
+* If the person already has a circle, the addition of the circle will not be allowed.
+* NOTE: circle can only be added via `circleadd` command, and cannot be added via `edit` or `add` command.
+
+Examples:
+* `circleadd 1 c/client` adds the circle `client` to the 1st person in the address book.
+* `circleadd 2 c/prospect` adds the circle `prospect` to the 2nd person in the address book.
+* `circleadd 3 c/family` will lead to an error message as `family` is not an accepted circle type.
+
+
+### Removing a circle to a person : `circlerm`
+
+Removes a circle from an existing person in the address book.
+Circle here referring to the type of relationship user have with the contact.
+
+Format: `circlerm INDEX`
+
+* The circle will be removed from the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Only 1 circle can be removed at a time from 1 contact only.
+* If the person doesn't have the circle, the deletion of the circle will not be allowed.
+* To edit an existing circle, you will need to first remove the existing circle using `circlerm` command, and then add the new circle using `circleadd` command.
+* NOTE: circle can only be removed via `circlerm` command.
+
+Examples:
+* `circlerm 1` removes the circle from the 1st person in the address book, regardless of the circle.
+
+
+### Filtering Circle : `circlfilter`
+
+Filters and shows all contacts in the address book with the specified circle.
+Circle here referring to the type of relationship user have with the contact.
+
+Format: `circlefilter CIRCLE`
+
+* All contacts with the specified circle will be shown in their index order in the address book.
+* There are only 3 types of circles: `client`, `prospect` and `friend`. The circle must be one of these 3 types. Any other name to `circlefilter` will be rejected.
+* NOTE: circle can only be filtered via `circlfilter` command.
+
+Examples:
+* `circlfilter client` shows all contacts with the circle `client` in the address book, in their index order in the address book.
+* `circlfilter family` will lead to an error message as `family` is not an accepted circle type.
+
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
+
 
 ### Exiting the program : `exit`
 
@@ -238,9 +318,11 @@ Exits the program.
 
 Format: `exit`
 
+
 ### Saving the data
 
 FAM's data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
 
 ### Editing the data file
 
@@ -250,6 +332,7 @@ FAM's data are saved automatically as a JSON file `[JAR file location]/data/addr
 If your changes to the data file makes its format invalid, FAM will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the FAM to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
 
 ### Archiving data files `[coming in v2.0]`
 
@@ -288,3 +371,7 @@ Action | Format, Examples
 **Tag Remove** | `tagrm INDEX t/TAG`<br> e.g., `tagrm 1 t/friend`
 **Note Add** | `note INDEX: NOTE`<br> e.g., `note 1: looking for student coverage`
 **Note Clear** | `noteclear INDEX`<br> e.g., `noteclear 1`
+**Circle Add** | `circleadd INDEX c/CIRCLE`<br> e.g., `circleadd 1 c/client`
+**Circle Remove** | `circlerm INDEX`<br> e.g., `circlerm 1`
+**Circle Filter** | `circlefilter CIRCLE`<br> e.g., `circlefilter client`
+
