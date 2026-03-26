@@ -238,7 +238,7 @@ Format: `note INDEX note/NOTE`
 * When viewing a person, each note will be shown in a new line.
 
 Examples:  
-* `note 1: Family of four, looking for family coverage` adds the note `Family of four, looking for family coverage` to the 1st person in the list.
+* `note 1 note/Family of four, looking for family coverage` adds the note `Family of four, looking for family coverage` to the 1st person in the list.
 
 
 ### Clear a person's notes : `noteclear`
