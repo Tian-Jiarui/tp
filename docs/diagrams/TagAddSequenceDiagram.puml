@@ -14,6 +14,10 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
+box Storage STORAGE_COLOR_T1
+participant "s:Storage" as Storage STORAGE_COLOR_T1
+end box
+
 [-> LogicManager : execute("tagadd 1 t/friends")
 activate LogicManager
 
@@ -70,6 +74,12 @@ deactivate CommandResult
 
 TagAddCommand --> LogicManager : r
 deactivate TagAddCommand
+
+LogicManager -> Storage : saveAddressBook(model.getAddressBook())
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
 
 [<--LogicManager
 deactivate LogicManager
