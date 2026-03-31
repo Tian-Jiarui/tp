@@ -53,7 +53,7 @@ public class NoteAddCommand extends Command {
             throw new CommandException("Failed to retrieve person list.");
         }
 
-        if (index.getZeroBased() < 0 || index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() <= 0 || index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
         }
 

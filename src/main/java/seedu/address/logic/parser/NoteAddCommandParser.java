@@ -25,18 +25,24 @@ public class NoteAddCommandParser implements Parser<NoteAddCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NOTE);
 
-        // Validate index is positive integer
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_INDEX, pe);
-        }
-
-        // Validate note/ prefix is present
+        // 1. Check if note/ prefix is present FIRST — format validation takes priority
         if (argMultimap.getValue(PREFIX_NOTE).isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
+        }
+
+        // 2. Now validate the index
+        String preamble = argMultimap.getPreamble().trim();
+        int rawInt;
+        try {
+            rawInt = Integer.parseInt(preamble);
+        } catch (NumberFormatException e) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
+        }
+
+        if (rawInt <= 0) {
+            throw new ParseException(MESSAGE_INVALID_INDEX); // index is present but out of range
         }
 
         String noteText = argMultimap.getValue(PREFIX_NOTE).get().trim();
@@ -52,6 +58,7 @@ public class NoteAddCommandParser implements Parser<NoteAddCommand> {
             throw new ParseException(MESSAGE_CHAR_LIMIT_EXCEEDED);
         }
 
+        Index index = Index.fromOneBased(rawInt);
         return new NoteAddCommand(index, new Note(noteText));
     }
 }
