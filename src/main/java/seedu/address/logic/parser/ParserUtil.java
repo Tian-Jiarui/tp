@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.circle.Circle;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.FollowUpDate;
@@ -144,5 +145,17 @@ public class ParserUtil {
         }
 
         return followUpDate;
+    }
+
+    public static Circle parseCircle(String circle) throws ParseException{
+        requireNonNull(circle);
+        String trimmedCircle = circle.trim();
+        if (!Circle.isValidCircleName(trimmedCircle)) {
+            throw new ParseException(Circle.MESSAGE_CONSTRAINTS);
+        }
+
+        Circle circleObject = new Circle(trimmedCircle);
+
+        return circleObject;
     }
 }
