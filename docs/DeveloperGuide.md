@@ -82,6 +82,8 @@ The `UI` component,
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* manages **View Mode**, a UI state where full contact details are displayed. Refer to the 
+[View Mode feature](#view-mode-feature) section for implementation details.
 
 ### Logic component
 
