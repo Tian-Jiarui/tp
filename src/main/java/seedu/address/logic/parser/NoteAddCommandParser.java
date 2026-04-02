@@ -49,7 +49,6 @@ public class NoteAddCommandParser implements Parser<NoteAddCommand> {
         if (noteText.isEmpty()) {
             throw new ParseException(MESSAGE_CONSTRAINTS);
         }
-        
         Index index = Index.fromOneBased(rawInt);
 
         // Validate the word count of the new input is <= MAX_CHAR_COUNT
