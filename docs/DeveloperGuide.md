@@ -172,6 +172,21 @@ Users can add tags to contacts for categorisation, using the `tagadd` command. T
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `TagAddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
 
+### View feature
+
+Users can view the full details of a contact using the `view` command. The implementation of this feature is shown 
+in the sequence diagram below.
+
+#### The sequence diagram
+![View Mode Sequence Diagram](images/ViewSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ViewCommandParser` 
+should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+</div>
+
+After `ViewCommand` executes, the app enters **View Mode**. `MainWindow` sets `isInViewMode = true` and 
+calls `handleViewPerson()` to display the contact's full details. While in View Mode, the contact is always shown at index 1. Running `add`, `list`, `delete`, `clear`, `find`, or `remind` exits View Mode and clears the detail panel. All other commands (e.g. `edit`, `note`, `tag`) keep the app in View Mode and refresh the detail panel with the latest contact details.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation

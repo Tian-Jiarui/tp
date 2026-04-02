@@ -167,7 +167,6 @@ Examples:
 * `find david irfan` returns `David Li`, `Irfan Ibrahim`<br><br>
   ![result for 'find david irfan'](images/findDavidIrfanResult.png)
 
-
 ### Viewing a person : `view`
 
 Shows the specified person.
@@ -176,12 +175,24 @@ Format: `view INDEX`
 
 * Shows the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 
 Examples:
 * `list` followed by `view 2` shows the 2nd person in the address book.
 * `find Betsy` followed by `view 1` shows the 1st person in the results of the `find` command.
 
+### View Mode
+
+After running `view`, the app enters **View Mode**, displaying the full details of the selected contact.
+
+While in View Mode:
+* The displayed contact is always shown at **index 1** in the list
+* Any command that takes an index (e.g. `edit`, `delete`, `note`) must use **index 1** to operate on the displayed 
+contact
+* Commands that will exit View Mode: `add`, `delete`, `list`, `find`, `remind`, `clear`
+* Run `list` to exit View Mode and return to the full contact list
+
+> 💡 **Tip:** To view a different contact, run `list` first, then `view` on the desired index.
 
 ### Deleting a person : `delete`
 
