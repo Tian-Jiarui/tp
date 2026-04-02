@@ -33,7 +33,7 @@ public class TypicalPersons {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends")
+            .withTags("owes-money", "friends")
             .withFollowUpDate("2026-10-13")
             .withNotes("Interested in premium plan")
             .withCircle("prospect")
