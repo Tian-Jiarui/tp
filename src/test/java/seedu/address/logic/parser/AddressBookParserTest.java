@@ -127,7 +127,7 @@ public class AddressBookParserTest {
     public void parseCommand_circleadd() throws Exception {
         CircleAddCommand command = (CircleAddCommand) parser.parseCommand(
             CircleAddCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " c/" + FRIENDS.circleName);
+                + INDEX_FIRST_PERSON.getOneBased() + " c/" + FRIENDS.getCircleName());
         assertEquals(new CircleAddCommand(INDEX_FIRST_PERSON, FRIENDS), command);
     }
 
@@ -142,8 +142,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_circlefilter() throws Exception {
         CircleFilterCommand command = (CircleFilterCommand) parser.parseCommand(
-            CircleFilterCommand.COMMAND_WORD + " " + FRIENDS.circleName);
-        assertEquals(new CircleFilterCommand(FRIENDS.circleName), command);
+            CircleFilterCommand.COMMAND_WORD + " " + FRIENDS.getCircleName());
+        assertEquals(new CircleFilterCommand(FRIENDS.getCircleName()), command);
     }
 
 }
