@@ -311,7 +311,7 @@ Format: `circleadd INDEX c/CIRCLE`
 * There are only 3 types of circles: `client`, `prospect` and `friend`. The circle must be one of these 3 types. Any other name to `circleadd` will be rejected.
 * * Only 1 circle can be added at a time to 1 contact only.
 * If the person already has a circle, the addition of the circle will not be allowed.
-* NOTE: circle can only be added via `circleadd` command, and cannot be added via `edit` or `add` command.
+* NOTE: circle can only be added via `circleadd` and `edit` command, but not `add` command.
 
 Examples:
 * `circleadd 1 c/client` adds the circle `client` to the 1st person in the address book.
@@ -330,7 +330,7 @@ Format: `circlerm INDEX`
 * Only 1 circle can be removed at a time from 1 contact only.
 * If the person doesn't have the circle, the deletion of the circle will not be allowed.
 * To edit an existing circle, you will need to first remove the existing circle using `circlerm` command, and then add the new circle using `circleadd` command.
-* NOTE: circle can only be removed via `circlerm` command.
+* NOTE: circle can be removed via both `circlerm` and `edit` command.
 
 Examples:
 * `circlerm 1` removes the circle from the 1st person in the address book, regardless of the circle.
@@ -367,6 +367,7 @@ Format: `followup INDEX d/DATE`
 * `DATE` must be in the format `YYYY-MM-DD` (e.g. `2026-04-01`).
 * Past dates are allowed, but the app will show a warning after the date is set.
 * Dates more than 5 years from today are allowed, but the app will show a warning after the date is set.
+* NOTE: follow-up date can only be added via `followup` and `edit` command, but not `add` command.
 
 Examples:
 * `followup 1 d/2026-04-01` sets the follow-up date of contact 1 to `2026-04-01`.
@@ -382,6 +383,7 @@ Format: `followupclear INDEX`
 * Clears the follow-up date of the contact at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** `1, 2, 3, …`
+* NOTE: follow-up date can be removed only via `followupclear` command.
 
 Examples:
 * `followupclear 1` clears the follow-up date of the 1st contact in the list.
