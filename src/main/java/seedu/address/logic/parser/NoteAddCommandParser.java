@@ -41,7 +41,7 @@ public class NoteAddCommandParser implements Parser<NoteAddCommand> {
             rawInt = Integer.parseInt(preamble);
         } catch (NumberFormatException e) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
         }
 
         // if index is present but out of range
