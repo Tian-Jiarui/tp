@@ -79,26 +79,14 @@ public class Person {
      * Check if Email is DEFAULT_EMAIL
      */
     public boolean isDefaultEmail() {
-        boolean result = false;
-
-        if (this.email.toString() == Email.DEFAULT_EMAIL) {
-            result = true;
-        }
-
-        return result;
+        return this.email.value.equals(Email.DEFAULT_EMAIL);
     }
 
     /**
      * Check if Address is DEFAULT_ADDRESS
      */
     public boolean isDefaultAddress() {
-        boolean result = false;
-
-        if (this.address.toString() == Address.DEFAULT_ADDRESS) {
-            result = true;
-        }
-
-        return result;
+        return this.address.value.equals(Address.DEFAULT_ADDRESS);
     }
 
     /**
@@ -111,12 +99,8 @@ public class Person {
 
     /**
      * Returns a new {@code Person} with the specified {@code tag} added.
-     * <p>
-     * This method does not modify the current {@code Person} object. Instead,
-     * it creates a new {@code Person} instance with all existing fields unchanged
-     * except for the {@code tags}, which includes the newly added {@code tag}.
      *
-     * @param tag the {@code Tag} to add to the person's tags
+     * @param tag the {@code Tag} to add
      * @return a new {@code Person} instance with the added tag
      */
     public Person addTag(Tag tag) {
@@ -127,12 +111,8 @@ public class Person {
 
     /**
      * Returns a new {@code Person} with the specified {@code tag} removed.
-     * <p>
-     * This method does not modify the current {@code Person} object. Instead,
-     * it creates a new {@code Person} instance with all existing fields unchanged
-     * except for the {@code tags}, which excludes the specified {@code tag}.
      *
-     * @param tag the {@code Tag} to remove from the person's tags
+     * @param tag the {@code Tag} to remove
      * @return a new {@code Person} instance with the tag removed
      */
     public Person removeTag(Tag tag) {
