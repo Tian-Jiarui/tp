@@ -57,17 +57,7 @@ public class SetFollowUpCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
-
-        Person editedPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                personToEdit.getTags(),
-                Optional.of(followUpDate),
-                personToEdit.getNotes(),
-                personToEdit.getCircle()
-        );
+        Person editedPerson = personToEdit.setFollowUpDate(followUpDate);
 
         model.setPerson(personToEdit, editedPerson);
 

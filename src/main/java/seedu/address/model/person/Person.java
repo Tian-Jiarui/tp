@@ -148,6 +148,14 @@ public class Person {
         return new Person(name, phone, email, address, tags, followUpDate, Optional.empty(), circle);
     }
 
+    public Person setFollowUpDate(FollowUpDate followUpDate) {
+        return new Person(name, phone, email, address, tags, Optional.of(followUpDate), notes, circle);
+    }
+
+    public Person clearFollowUpDate() {
+        return new Person(name, phone, email, address, tags, Optional.empty(), notes, circle);
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.

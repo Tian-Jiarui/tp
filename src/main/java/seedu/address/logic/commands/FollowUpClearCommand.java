@@ -49,17 +49,7 @@ public class FollowUpClearCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
-
-        Person editedPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                personToEdit.getTags(),
-                Optional.empty(),
-                personToEdit.getNotes(),
-                personToEdit.getCircle()
-        );
+        Person editedPerson = personToEdit.clearFollowUpDate();
 
         model.setPerson(personToEdit, editedPerson);
 
