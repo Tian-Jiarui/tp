@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.model.person.Note.MESSAGE_CHAR_LIMIT_EXCEEDED;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Optional;
@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -108,9 +107,9 @@ public class NoteAddCommandTest {
 
     @Test
     public void execute_wordLimitExceeded_throwsCommandException() {
-        // Start a person with 500 characters in their note
+        // Start a person with 900 characters in their note
         Person original = model.getFilteredPersonList().get(0);
-        String existingNote = "w".repeat(500).trim();
+        String existingNote = "w".repeat(900);
         Person withExistingNote = new Person(
                 original.getName(), original.getPhone(), original.getEmail(),
                 original.getAddress(), original.getTags(),
@@ -119,14 +118,9 @@ public class NoteAddCommandTest {
                 original.getCircle());
         model.setPerson(original, withExistingNote);
 
-        // Adding 501 characters would push total to 1001 - should fail
-        String newNote = "w".repeat(501).trim();
-        //NoteAddCommand command = new NoteAddCommand(Index.fromOneBased(1), new Note(newNote));
-
-        assertThrows(CommandException.class, () -> {
-            NoteAddCommand command = new NoteAddCommand(Index.fromOneBased(1), new Note(newNote));
-            command.execute(model);
-        });
+        // Adding 150 characters would push total to 1051 (900 + 3 for " | " + 150) - should fail
+        NoteAddCommand command = new NoteAddCommand(Index.fromOneBased(1), new Note("w".repeat(150)));
+        assertCommandFailure(command, model, MESSAGE_CHAR_LIMIT_EXCEEDED);
     }
     @Test
     public void equals() {

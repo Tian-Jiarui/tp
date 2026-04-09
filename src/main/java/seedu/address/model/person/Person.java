@@ -148,7 +148,8 @@ public class Person {
         String base = notes.map(Note::toString).orElse("");
         String incoming = note.toString().trim();
         String updated = base.isEmpty() ? incoming : base + " | " + incoming;
-        return new Person(name, phone, email, address, tags, followUpDate, Optional.of(new Note(updated)), circle);
+        Note combinedNote = new Note(updated);
+        return new Person(name, phone, email, address, tags, followUpDate, Optional.of(combinedNote), circle);
     }
 
     public Person clearNote() {

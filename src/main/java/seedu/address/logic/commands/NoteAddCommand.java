@@ -61,8 +61,10 @@ public class NoteAddCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = personToEdit.addNote(note);
-        if (editedPerson.getNotes().map(Note::charCount).orElse(0) > MAX_CHAR_COUNT) {
+        Person editedPerson;
+        try {
+            editedPerson = personToEdit.addNote(note);
+        } catch (IllegalArgumentException e) {
             throw new CommandException(MESSAGE_CHAR_LIMIT_EXCEEDED);
         }
 

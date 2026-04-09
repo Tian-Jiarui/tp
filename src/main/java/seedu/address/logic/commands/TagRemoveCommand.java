@@ -21,7 +21,7 @@ import seedu.address.model.tag.Tag;
  */
 public class TagRemoveCommand extends Command {
     public static final String COMMAND_WORD = "tagrm";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes 1 tag from a contact in"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes 1 tag from a contact in "
         + "the address book at a time.\n"
         + "Parameters: INDEX " + PREFIX_TAG + "TAG\n"
         + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "classmate";
