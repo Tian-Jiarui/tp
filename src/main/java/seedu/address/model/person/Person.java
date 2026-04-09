@@ -137,6 +137,17 @@ public class Person {
         return circle.isPresent();
     }
 
+    public Person addNote(Note note) {
+        String base = notes.map(Note::toString).orElse("");
+        String incoming = note.toString().trim();
+        String updated = base.isEmpty() ? incoming : base + " | " + incoming;
+        return new Person(name, phone, email, address, tags, followUpDate, Optional.of(new Note(updated)), circle);
+    }
+
+    public Person clearNote() {
+        return new Person(name, phone, email, address, tags, followUpDate, Optional.empty(), circle);
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.

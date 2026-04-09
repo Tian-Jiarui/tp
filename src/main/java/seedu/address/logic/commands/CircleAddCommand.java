@@ -60,7 +60,7 @@ public class CircleAddCommand extends Command {
         }
 
         Person personAtIndex = lastShownList.get(index.getZeroBased());
-        if (personAtIndex.getCircle().isPresent()) {
+        if (personAtIndex.hasCircle()) {
             throw new CommandException(MESSAGE_CIRCLE_PERSON_FAILURE);
         }
 

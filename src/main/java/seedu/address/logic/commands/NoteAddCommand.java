@@ -62,25 +62,10 @@ public class NoteAddCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        String existingValue = personToEdit.getNotes().map(Note::toString).orElse("");
-        String updatedValue = existingValue.isEmpty()
-                ? note.toString().trim()
-                : existingValue + " | " + note.toString().trim();
-
-        if (updatedValue.length() > MAX_CHAR_COUNT) {
+        Person editedPerson = personToEdit.addNote(note);
+        if (editedPerson.getNotes().map(Note::charCount).orElse(0) > MAX_CHAR_COUNT) {
             throw new CommandException(MESSAGE_CHAR_LIMIT_EXCEEDED);
         }
-
-        Person editedPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                personToEdit.getTags(),
-                personToEdit.getFollowUpDate(),
-                Optional.of(new Note(updatedValue)),
-                personToEdit.getCircle()
-        );
 
         model.setPerson(personToEdit, editedPerson);
 

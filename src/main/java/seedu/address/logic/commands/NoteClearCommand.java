@@ -55,20 +55,7 @@ public class NoteClearCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        if (personToEdit == null) {
-            throw new CommandException("Retrieved person is null.");
-        }
-
-        Person editedPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                personToEdit.getTags(),
-                personToEdit.getFollowUpDate(),
-                Optional.<Note>empty(),
-                personToEdit.getCircle()
-        );
+        Person editedPerson = personToEdit.clearNote();
 
         model.setPerson(personToEdit, editedPerson);
 

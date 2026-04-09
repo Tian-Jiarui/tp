@@ -50,7 +50,7 @@ public class CircleRemoveCommand extends Command {
         }
 
         Person personAtIndex = lastShownList.get(index.getZeroBased());
-        if (personAtIndex.getCircle().isEmpty()) {
+        if (!personAtIndex.hasCircle()) {
             throw new CommandException(MESSAGE_CIRCLE_PERSON_FAILURE);
         }
 

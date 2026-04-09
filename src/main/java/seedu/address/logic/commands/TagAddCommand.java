@@ -27,7 +27,8 @@ public class TagAddCommand extends Command {
         + "Parameters: INDEX " + PREFIX_TAG + "TAG\n"
         + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "classmate";
     public static final int MAX_TAGS_PER_PERSON = 5;
-    public static final String MESSAGE_TAG_LIMIT_REACHED = "A contact can have at most 5 tags.";
+    public static final String MESSAGE_TAG_LIMIT_REACHED = "A contact can have at most"
+        + MAX_TAGS_PER_PERSON + "tags.";
     public static final String MESSAGE_TAG_PERSON_SUCCESS = "Added tag '%1$s' to %2$s";
     public static final String MESSAGE_TAG_PERSON_FAILURE = "Invalid value: tag already exists for this contact.";
     public static final String MESSAGE_INVALID_PERSON = "The person does not exist in the address book.";
