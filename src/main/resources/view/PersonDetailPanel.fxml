@@ -44,6 +44,9 @@
         <Label fx:id="followUpDate" styleClass="view-text"/>
     </HBox>
 
-    <FlowPane fx:id="tags" alignment="TOP_LEFT" hgap="10" vgap="10" prefWrapLength="220" prefWidth="220" />
+    <HBox>
+        <Label text="Tags:" styleClass="view-title" minWidth="70"/>
+        <FlowPane fx:id="tags" alignment="TOP_LEFT" hgap="10" vgap="10" prefWrapLength="220" prefWidth="220" />
+    </HBox>
 
 </VBox>
