@@ -22,7 +22,7 @@ public class ViewCommandParser {
      * @throws ParseException If the input does not contain a valid index.
      */
     public ViewCommand parse(String args) throws ParseException {
-        Index index = parseIndex(args.trim());
+        Index index = parseIndex(args.trim(), ViewCommand.MESSAGE_USAGE);
         return new ViewCommand(index);
     }
 }
