@@ -49,7 +49,12 @@ public class Messages {
                 .append("; Circle: ")
                 .append(person.getCircle().isPresent() ? person.getCircle().get() : "-")
                 .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+        if (person.getTags().isEmpty()) {
+            builder.append("-");
+        } else {
+            person.getTags().forEach(builder::append);
+        }
+        builder.append(";");
 
         return builder.toString();
     }
