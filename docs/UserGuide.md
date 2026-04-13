@@ -66,7 +66,7 @@ A **Graphical User Interface (GUI)** is provided too, so that you can have the b
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` :
       Adds a contact named `John Doe` to the address book.
     * `delete 3` : Deletes the 3rd contact shown in the current list.
-    * `clear` : Deletes all contacts.
+    * `clear` : Deletes all contacts. 
     * `exit` : Exits the app.
 
 6. Refer to [Features](#features) for details of each command.
@@ -80,11 +80,24 @@ proceeding to the detailed feature descriptions below.
 
 <div markdown="span" class="alert alert-primary">
 
-**Tip #2:** Read the [Notes on Command Format](#features) before diving into individual features, it explains things 
+**Tip #2:** `clear`, `delete` are destructive commands that are irreversible, FAM does not come with `undo` command. 
+Make sure to double-check the command and confirm the deletion before executing these commands.
+
+</div>
+
+<div markdown="span" class="alert alert-primary">
+
+**Tip #3:** Read the [Notes on Command Format](#features) before diving into individual features, it explains things 
 like optional fields and command parameters that will make using the app much easier!
 
 </div>
 
+div markdown="span" class="alert alert-primary">
+
+**Tip #4:** FAM identifies commands exactly by their spelling, any typo in the command word will lead `Uknown command` error.
+Only command words with the right sequence of characters will be accepted given "Did you mean" command suggestion. For example, `aDd` and `a dd` will result in command suggestions but `addd` won't.
+
+</div>
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -135,6 +148,7 @@ Adds a person to the address book.
 * Phone number must be numeric, have at least 3 and at most 17 digits and cannot be blank.
 * Phone number and email must be unique across contacts. If a duplicate phone number or email is detected, the contact will not be added.
 * Email, address, and tag are optional. These values can be updated after the contact is created using the `edit` command.
+* Note and follow-up date cannot be added during contact creation, but can be added afterward using the `note` and `followup` commands respectively.
 * Refer to [Field Constraints Summary](#field-constraints-summary) for a summary of the field constraints.
 
 Format: `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…`
@@ -146,8 +160,9 @@ Examples:
 <div markdown="span" class="alert alert-info">
 
 :information_source: **Note:** If prefixes are not typed correctly or separated by spaces, they may be read as part of the previous field.  
-For example, `a/123 Streetp/91234567` may cause the phone number to be included in the address.  
-To prevent this, ensure all prefixes are valid and separated by spaces.
+For example, `a/123 Streetp/91234567` will lead to invalid command format warning as FAM read the phone number as part of the address -- `123 Streetp/91234567`. Phone number is missing in this case, which is a required field for `add`.
+
+To prevent this, ensure all prefixes are valid and separated from the previous field by at least 1 whitespaces.
 
 </div>
 
@@ -165,10 +180,10 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [d/FOLLOWUP
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
 * The index **must be a positive integer** `1, 2, 3, …`
-* In [view mode](#view-mode), the index of the displayed contact is always `1`.
-* At least one of the optional fields must be provided. 
+* In [view mode](#view-mode), the index of the displayed contact is always `1`. 
 * If no fields are modified, the command will be rejected.
 * Existing values will be updated to the input values.
+* Notes cannot be edited using the `edit` command, see [Note Add](#add-notes-to-a-person--note) and [Note Clear](#clear-a-persons-notes--noteclear) for notes management.
 * Refer to [Field Constraints Summary](#field-constraints-summary) for a summary of the field constraints.
 
 <div markdown="span" class="alert alert-info">
@@ -183,7 +198,7 @@ To prevent this, ensure all prefixes are valid and separated by spaces.
 
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
 * You can input multiple tags under the `edit` command. Each tag should have its own `t/` prefix.
-* If you want to add or remove tags one at a time, use `tagadd` or `tagrm` instead.
+* If you want to add or remove specific tags one at a time, use [`tagadd`](#adding-a-tag--tagadd) or [`tagrm`](#removing-a-tag--tagrm) instead.
 
 <div markdown="span" class="alert alert-warning">
 
@@ -217,7 +232,7 @@ Examples:
 
 ### Viewing a person : `view`
 
-Shows the specified person.
+Shows the all fields from a specified person.
 
 Format: `view INDEX`
 
@@ -258,7 +273,7 @@ Format: `delete INDEX`
 * The index refers to the number shown beside your contact's name.
 * The index **must be a positive integer** (e.g. `1, 2, 3, ...`) and be within the valid range of contacts.
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
-* A **confirmation message** will be shown before deletion. You will need to click `OK` to confirm the deletion.
+* A **confirmation message** will be shown before deletion. You will need to click `OK` to confirm the deletion. This action is irreversible.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
@@ -272,9 +287,9 @@ Format: `tagadd INDEX t/TAG`
 
 * Adds a tag to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list and **must be a positive integer** `1, 2, 3, …`
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
-* Only 1 tag can be added at a time. `t/tag t/tag2` will not work.
+* Only 1 tag can be added at a time. `tagadd INDEX t/tag t/tag2` will not work.
 * Creates the tag if it does not already exist.
-* For each contact, tag names must be unique and is case-insensitive (e.g. `t/camp` and `t/Camp` will be considered the same tag).
+* For each contact, tag names must be unique and is case-insensitive, e.g. `t/camp` and `t/Camp` will be considered the same tag.
 * A person can have a maximum of 5 tags. If the person already has 5 tags, any additional tag will not be added.
 
 Examples:
@@ -294,12 +309,13 @@ Format: `tagrm INDEX t/TAG`
 
 * Removes a tag from the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** `1, 2, 3, …`
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
-* Only 1 tag can be removed at a time. `t/tag t/tag2` will not work.
+* Only 1 tag can be removed at a time. `tagrm INDEX t/tag t/tag2` will not work.
+* Tag names are case-insensitive, e.g. `tagrm INDEX t/Camp` and `tagrm INDEX t/camp` will both refer to the same tag name.
 * Removes the tag if it exists for the person.
 * If the tag does not exist, the deletion of the tag will not be allowed.
 
 Examples:
-* `tagrm 1 t/friend` removes the tag `friend` from the 1st person in the address book.
+* `tagrm 1 t/camp` removes the tag `camp` from the 1st person in the address book.
 
 <div markdown="span" class="alert alert-primary">
 
@@ -319,6 +335,7 @@ Format: `note INDEX note/NOTE`
 * Blank notes (i.e. `note/` without any text after it) will not be added.
 * Notes will only show up after running `view`.
 * Each note entry and the total combined notes per person is limited to **1000 characters**. This is to ensure readability and prevent excessively long notes.
+* Notes can only be added via the `note` command.
 
 <div markdown="span" class="alert alert-info">
 
@@ -340,6 +357,7 @@ Format: `noteclear INDEX`
 * Clears all notes of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** `1, 2, 3, …`
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
 * When `view`ing a person, their removed notes will no longer be shown.
+* Notes can only be cleared via the `noteclear` command.
 
 Examples:
 * `noteclear 1` clears all notes of the 1st person in the list.
@@ -356,7 +374,7 @@ Format: `circleadd INDEX c/CIRCLE`
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
 * Only 1 circle can be added at a time to 1 contact.
 * If the person already has a circle, the addition of the circle will not be allowed.
-* Note: A circle can only be added via the `circleadd` and `edit` commands, but not the `add` command.
+* A circle can only be added via the `circleadd` and `edit` commands, but not the `add` command.
 
 Examples:
 * `circleadd 1 c/client` adds the circle `client` to the 1st person in the address book.
@@ -381,8 +399,7 @@ the displayed person list. The index **must be a positive integer** `1, 2, 3, �
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
 * Only 1 circle can be removed at a time from 1 contact.
 * If the person does not have a circle, the deletion of the circle will not be allowed.
-* To edit an existing circle, you will need to first remove the existing circle using the `circlerm` command, and then 
-add the new circle using the `circleadd` command.
+* To edit an existing circle, you can use `edit INDEX c/`. refer to [Editing a person](#editing-a-person--edit) for details.
 
 Examples:
 * `circlerm 1` removes the circle from the 1st person in the address book, regardless of the circle.
@@ -523,7 +540,7 @@ until the file has been fixed.
 **A**: Use `edit INDEX t/` to clear all tags for that contact.
 
 **Q**: Why do I have to use index `1` after `view`? <br>
-**A**: In View Mode, only the selected contact is shown, so commands that require an index must use `1`.
+**A**: In View Mode, only the selected contact is shown, so commands that require an index must use `1`. Use `list` to exit View Mode and return to the full contact list.
 
 **Q**: Why is a contact not shown in `remind`? <br>
 **A**: Only contacts with a follow-up date are shown by `remind`.
@@ -554,7 +571,7 @@ shortcut `F1`), the original Help Window will remain minimized, and no new Help 
 | **Phone Number** | Yes | Numbers only, at least 3 and at most 17 digits                                                                                                                             | Yes     | Yes | No | Each contact can have only one phone number                                         |
 | **Email** | No | Valid email format                                                                                                                                                         | Yes     | Yes | No | Optional when adding, but cannot be removed once added                              |
 | **Address** | No | Accepts any value                                                                                                                                                          | No      | Yes | No | Optional when adding, but cannot be removed once added                              |
-| **Circle** | No | Must be `client`, `prospect`, or `friend`                                                                                                                                  | No      | Yes | Yes | Each contact can only have one circle.                                              |
+| **Circle** | No | Must be `client`, `prospect`, or `friend`, case-insensitive                                                                                                                | No      | Yes | Yes | Each contact can only have one circle.                                              |
 | **Note** | No | Accepts any value, max 1000 characters total                                                                                                                               | No      | Yes | Yes | Can only be added via `note` and removed via `noteclear`, visible only in View Mode |
 | **Follow-up Date** | No | Format: `YYYY-MM-DD`, must be a valid calendar date                                                                                                                        | No      | Yes | Yes | Warning shown if date is in the past                                                |
 | **Tag** | No | 1–20 characters per tag, alphanumeric or hyphens only, no spaces, case-insensitive                                                                                         | No      | Yes | Yes | Max 5 tags per contact, tag cannot be duplicated for the same contact               |
