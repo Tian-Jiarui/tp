@@ -358,7 +358,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-* 4a. A duplicate contact is detected (same name and phone number).
+** 4a. A duplicate contact is detected (same phone number, or same email address if both contacts have a non-default email provided).
 
     * 4a1. FAM shows an error message.
 
@@ -1125,3 +1125,18 @@ testers are expected to do more *exploratory* testing.
 ### Data file location
 **Expected:**
 * Data is stored at: `[JAR file location]/data/addressbook.json`
+
+---------------------------------------------------------------------------------------
+
+## Appendix: Planned Enhancements
+
+1. **Improve timing of follow-up date warning**: Currently, when a user sets a past or far-future follow-up date and then confirms a deletion, the warning message from `followup` may be overwritten by the deletion confirmation prompt. In a future version, we plan to ensure that follow-up date warnings are displayed persistently so they are not lost due to subsequent command output.
+
+2. **Reject `remind 0` explicitly**: Currently, `remind 0` is treated as an invalid input. However, the error message could be clearer. In a future version, we plan to provide a more specific error message explaining that DAYS must be a positive integer of at least 1, and clarify that `remind 1` is the correct way to list contacts with a follow-up date today or tomorrow.
+
+3. **Support multiple phone numbers per contact**: Currently, FAM only supports one phone number per contact. Users who need to store multiple numbers (e.g., home and mobile) must use the `note` field as a workaround. In a future version, we plan to support multiple phone number fields natively.
+
+4. **Warn on unrecognised parameter prefixes**: Currently, unrecognised prefixes (e.g., `x/value`) are silently absorbed as part of the preceding parameter's value, which is inherited behaviour from AddressBook-Level3. This can cause user confusion. In a future version, we plan to detect and warn the user when unknown prefixes are used.
+
+5. **Flag contacts with duplicate names**: Currently, FAM allows two contacts to have the same name as long as their phone number or email differs, since the duplicate check is based on phone and email. In a future version, we plan to display a warning (without blocking the add) when a new contact shares an exact name with an existing one, to help users avoid unintentional duplicates.
+

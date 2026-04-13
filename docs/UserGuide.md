@@ -124,7 +124,7 @@ Format: `help`
 Adds a person to the address book.
 
 * Minimum required fields: `n/NAME` and `p/PHONE_NUMBER`.
-* Name has to be alphanumeric and can contain spaces, but cannot be blank.
+* Name must contain at least one letter, and may only include letters (including non-English characters such as Chinese or Malay names), digits, spaces, hyphens (-), apostrophes ('), slashes (/), and periods (.). It cannot be blank.
 * Phone number has to be numeric and cannot be blank (at least 3 digits and not more than 17 digits).
 * Email, address, and tag are optional. These values can be updated after the contact is created using the `edit` command.
 
@@ -294,6 +294,12 @@ Format: `note INDEX note/NOTE`
 <div markdown="span" class="alert alert-warning">
 
 **Warning:** Notes that exceed the 1000-character limit will be rejected.
+
+</div>
+
+<div markdown="block" class="alert alert-info">
+
+**Note on duplicate detection:** FAM considers two contacts to be duplicates if they share the same phone number, or the same email address (when both contacts have an email provided). Contacts with identical names but different phone numbers and emails are **not** flagged as duplicates and can both be added.
 
 </div>
 
@@ -504,6 +510,7 @@ primary screen, the GUI may open off-screen. The remedy is to delete the `prefer
 application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command again (or use the `Help` menu, or the keyboard 
 shortcut `F1`), the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **Reserved internal values cannot be used as input**: The values `missing@email.empty` (as an email) and `MISSING_ADDRESS` (as an address) are reserved for FAM's internal use and will be rejected with an error if entered. Use a different email or address value instead.
 
 --------------------------------------------------------------------------------------------------------------------
 
