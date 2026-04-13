@@ -270,15 +270,16 @@ Format: `tagadd INDEX t/TAG`
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
 * Only 1 tag can be added at a time. `t/tag t/tag2` will not work.
 * Creates the tag if it does not already exist.
-* If the tag already exists, the addition of the tag will not be allowed.
+* For each contact, tag names must be unique and is case-insensitive, so `t/camp` and `t/Camp` will be considered the same tag.
 * A person can have a maximum of 5 tags. If the person already has 5 tags, any additional tag will not be added.
 
 Examples:
-* `tagadd 1 t/friend` adds the tag `friend` to the 1st person in the address book.
+* `tagadd 1 t/camp` adds the tag `camp` to the 1st person in the address book.
 
 <div markdown="span" class="alert alert-primary">
 
 :bulb: **Tip:** To add more than 1 tag at once, use `edit`.
+:bulb: **Tip:** Not sure when to use tags vs circles? See the [FAQ](#faq) for the difference.
 
 </div>
 ### Removing a tag : `tagrm`
@@ -292,7 +293,6 @@ Format: `tagrm INDEX t/TAG`
 * Only 1 tag can be removed at a time. `t/tag t/tag2` will not work.
 * Removes the tag if it exists for the person.
 * If the tag does not exist, the deletion of the tag will not be allowed.
-* Only 1 tag can be removed at a time.
 
 Examples:
 * `tagrm 1 t/friend` removes the tag `friend` from the 1st person in the address book.
@@ -365,6 +365,8 @@ Examples:
 * `circleadd 1 c/client` adds the circle `client` to the 1st person in the address book.
 * `circleadd 2 c/prospect` adds the circle `prospect` to the 2nd person in the address book.
 * `circleadd 3 c/family` will lead to an error message as `family` is not an accepted circle type.
+
+:bulb: **Tip:** Not sure when to use tags vs circles? See the [FAQ](#faq) for the difference.
 
 ### Remove a circle from a person : `circlerm`
 
@@ -524,6 +526,9 @@ until the file has been fixed.
 
 **Q**: Why is a contact not shown in `remind`? <br>
 **A**: Only contacts with a follow-up date are shown by `remind`.
+
+**Q**: What's the difference between `tag` and `circle`? <br>
+**A**: Tag is meant to be a flexible label that you can create and use as you wish to make each contact differentiable, while circle is meant to be a single label that indicates the type of relationship you, as a FA, have with the contact. A contact can have multiple tags but only one circle.
 
 **Q**: Can I undo a `delete` or `clear` command? <br>
 **A**: No. There is currently no undo feature, so users should confirm carefully before deleting data.
