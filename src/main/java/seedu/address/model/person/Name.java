@@ -10,16 +10,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should contain at least one letter, and may only include letters (including "
-                    + "non-English characters), digits, spaces, hyphens, apostrophes, slashes, and periods. "
-                    + "It should not be blank.";
+            "Names must start with a letter or digit, contain at least one letter, and may only include "
+                    + "letters, digits, spaces, hyphens, apostrophes, slashes, and periods. It should not be blank.";
 
     /*
-     * Must contain at least one Unicode letter (covers English, Chinese, accented chars, etc.)
-     * First character must be a letter or digit.
-     * Remaining characters may include letters, digits, spaces, hyphens, apostrophes, slashes, periods.
+     * Must start with a letter or digit.
+     * Must contain at least one letter (a-z, A-Z).
+     * Remaining characters may include letters, digits, spaces, hyphens, apostrophes, slashes, periods, brackets.
      */
-    public static final String VALIDATION_REGEX = "(?=.*\\p{L})[\\p{L}\\p{Digit}][\\p{L}\\p{Digit} '\\-./]*";
+    public static final String VALIDATION_REGEX = "(?=.*[a-zA-Z])[a-zA-Z0-9][a-zA-Z0-9 '\\-./()]*";
 
     public final String fullName;
 

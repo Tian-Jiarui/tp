@@ -331,7 +331,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                      | see usage instructions/help               | refer to commands when I forget how to use the app     |
 | `*`      | student financial advisor | log interactions with a contact           | track engagement history                               |
 | `*`      | student financial advisor | set follow-up dates / reminders           | avoid forgetting to check in                           |
----
 
 ### Use cases
 

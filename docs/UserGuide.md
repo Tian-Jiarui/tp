@@ -39,6 +39,7 @@ A **Graphical User Interface (GUI)** is provided too, so that you can have the b
     * [Exit](#exiting-the-program--exit)
 * [FAQ](#faq)
 * [Known Issues](#known-issues)
+* [Field Constraints Summary](#field-constraints-summary)
 * [Command Summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -108,6 +109,10 @@ like optional fields and command parameters that will make using the app much ea
   will be ignored.
   e.g. `help 123` will be interpreted as `help`.
 
+* For commands that require an `INDEX`, the index refers to the number shown beside the contact in the displayed list. The index must be a positive integer (e.g. `1, 2, 3, ...`) and be within the valid range of the current displayed list of contacts.
+
+* In [View Mode](#view-mode), the index of the displayed contact is always `1`.
+
 * If you are using a PDF version of this document, be careful when copying and pasting commands
   that span multiple lines, as space characters surrounding line breaks may be omitted when copied into the application.
 </div>
@@ -125,7 +130,7 @@ Format: `help`
 Adds a person to the address book.
 
 * Minimum required fields: `n/NAME` and `p/PHONE_NUMBER`.
-* Name must contain at least one letter, and may only include letters (including non-English characters such as Chinese or Malay names), digits, spaces, hyphens (-), apostrophes ('), slashes (/), and periods (.). It cannot be blank.
+* Name must start with a letter or digit, contain at least one letter, and only consist of alphanumeric characters, spaces or the following symbols: `-`, `'`, `.`, `/`, `(`, `)`. It cannot be blank.
 * Name does not have to be unique across contacts.
 * Phone number must be numeric, have at least 3 and at most 17 digits and cannot be blank.
 * Phone number and email must be unique across contacts. If a duplicate phone number or email is detected, the contact will not be added.
@@ -178,14 +183,13 @@ To prevent this, ensure all prefixes are valid and separated by spaces.
 
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
 * You can input multiple tags under the `edit` command. Each tag should have its own `t/` prefix.
-* When editing tags, you must specify **all** the tags that the person should have after the edit. Existing tags will be replaced by the set of tags provided in the `edit` command.
 * If you want to add or remove tags one at a time, use `tagadd` or `tagrm` instead.
 
 <div markdown="span" class="alert alert-warning">
 
-**Warning:** Editing tags will replace all existing tags. Make sure to include all the tags you want the person to have 
+**Warning:** Editing tags will replace **all** existing tags. Make sure to include all the tags you want the person to have 
 when using `edit`.<br>
-**Example:**
+Example:
 A contact initially has the tags `friend` and `colleague`. After you run `edit 1 t/friend t/cafe`, only the tags `friend` and `cafe` will be displayed.
 
 </div>
@@ -266,11 +270,11 @@ Adds a tag to an existing person in the address book, one at a time.
 
 Format: `tagadd INDEX t/TAG`
 
-* Adds a tag to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** `1, 2, 3, …`
+* Adds a tag to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list and **must be a positive integer** `1, 2, 3, …`
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
 * Only 1 tag can be added at a time. `t/tag t/tag2` will not work.
 * Creates the tag if it does not already exist.
-* For each contact, tag names must be unique and is case-insensitive, so `t/camp` and `t/Camp` will be considered the same tag.
+* For each contact, tag names must be unique and is case-insensitive (e.g. `t/camp` and `t/Camp` will be considered the same tag).
 * A person can have a maximum of 5 tags. If the person already has 5 tags, any additional tag will not be added.
 
 Examples:
@@ -278,10 +282,10 @@ Examples:
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** To add more than 1 tag at once, use `edit`.
 :bulb: **Tip:** Not sure when to use tags vs circles? See the [FAQ](#faq) for the difference.
 
 </div>
+
 ### Removing a tag : `tagrm`
 
 Removes a tag from an existing person in the address book, one at a time.
@@ -315,18 +319,11 @@ Format: `note INDEX note/NOTE`
 * Blank notes (i.e. `note/` without any text after it) will not be added.
 * Notes will only show up after running `view`.
 * Each note entry and the total combined notes per person is limited to **1000 characters**. This is to ensure readability and prevent excessively long notes.
-* After adding the first note, subsequent notes will be appended with a pipe ` | `,
-  which also counts toward the 1000-character limit.
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="span" class="alert alert-info">
 
-**Warning:** Notes that exceed the 1000-character limit will be rejected.
-
-</div>
-
-<div markdown="block" class="alert alert-info">
-
-**Note on duplicate detection:** FAM considers two contacts to be duplicates if they share the same phone number, or the same email address (when both contacts have an email provided). Contacts with identical names but different phone numbers and emails are **not** flagged as duplicates and can both be added.
+:information_source: **Note:** After adding the first note, subsequent notes will be appended with a pipe ` | `,
+which also counts toward the 1000-character limit.
 
 </div>
 
@@ -366,7 +363,11 @@ Examples:
 * `circleadd 2 c/prospect` adds the circle `prospect` to the 2nd person in the address book.
 * `circleadd 3 c/family` will lead to an error message as `family` is not an accepted circle type.
 
+<div markdown="span" class="alert alert-primary">
+
 :bulb: **Tip:** Not sure when to use tags vs circles? See the [FAQ](#faq) for the difference.
+
+</div>
 
 ### Remove a circle from a person : `circlerm`
 
@@ -545,18 +546,18 @@ shortcut `F1`), the original Help Window will remain minimized, and no new Help 
 3. **Reserved internal values cannot be used as input**: The values `missing@email.empty` (as an email) and `MISSING_ADDRESS` (as an address) are reserved for FAM's internal use and will be rejected with an error if entered. Use a different email or address value instead.
 
 --------------------------------------------------------------------------------------------------------------------
-### Field Constraints Summary 
+## Field Constraints Summary
 
-| Field | Required | Format / Value                                                                     | Unique* | Modifiable | Removable | Notes                                                                               |
-|------|----------|------------------------------------------------------------------------------------|---------|------------|------------|-------------------------------------------------------------------------------------|
-| **Name** | Yes | Alphanumeric with spaces                                                           | No      | Yes | No | Can be duplicated across contacts                                                   |
-| **Phone Number** | Yes | Numbers only, at least 3 and at most 17 digits                                     | Yes     | Yes | No | Each contact can have only one phone number                                         |
-| **Email** | No | Valid email format                                                                 | Yes     | Yes | No | Optional when adding, but cannot be removed once added                              |
-| **Address** | No | Accepts any value                                                                  | No      | Yes | No | Optional when adding, but cannot be removed once added                              |
-| **Circle** | No | Must be `client`, `prospect`, or `friend`                                          | No      | Yes | Yes | Each contact can only have one circle.                                              |
-| **Note** | No | Accepts any value, max 1000 characters total                                       | No      | Yes | Yes | Can only be added via `note` and removed via `noteclear`, visible only in View Mode |
-| **Follow-up Date** | No | Format: `YYYY-MM-DD`, must be a valid calendar date                                | No      | Yes | Yes | Warning shown if date is in the past                                                |
-| **Tag** | No | 1–20 characters per tag, alphanumeric or hyphens only, no spaces, case-insensitive | No      | Yes | Yes | Max 5 tags per contact, tag cannot be duplicated for the same contact               |
+| Field | Required | Format / Value                                                                                                                                                             | Unique* | Modifiable | Removable | Notes                                                                               |
+|------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|------------|------------|-------------------------------------------------------------------------------------|
+| **Name** | Yes | Must start with a letter or digit, contain at least one letter, and only consist of alphanumeric characters, spaces or the following symbols: `-`, `'`, `.`, `/`, `(`, `)` | No      | Yes | No | Can be duplicated across contacts                                                   |
+| **Phone Number** | Yes | Numbers only, at least 3 and at most 17 digits                                                                                                                             | Yes     | Yes | No | Each contact can have only one phone number                                         |
+| **Email** | No | Valid email format                                                                                                                                                         | Yes     | Yes | No | Optional when adding, but cannot be removed once added                              |
+| **Address** | No | Accepts any value                                                                                                                                                          | No      | Yes | No | Optional when adding, but cannot be removed once added                              |
+| **Circle** | No | Must be `client`, `prospect`, or `friend`                                                                                                                                  | No      | Yes | Yes | Each contact can only have one circle.                                              |
+| **Note** | No | Accepts any value, max 1000 characters total                                                                                                                               | No      | Yes | Yes | Can only be added via `note` and removed via `noteclear`, visible only in View Mode |
+| **Follow-up Date** | No | Format: `YYYY-MM-DD`, must be a valid calendar date                                                                                                                        | No      | Yes | Yes | Warning shown if date is in the past                                                |
+| **Tag** | No | 1–20 characters per tag, alphanumeric or hyphens only, no spaces, case-insensitive                                                                                         | No      | Yes | Yes | Max 5 tags per contact, tag cannot be duplicated for the same contact               |
 
 <div markdown="span" class="alert alert-info">
 
