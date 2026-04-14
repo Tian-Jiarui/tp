@@ -23,7 +23,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams are in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
+
 </div>
 
 ### Architecture
@@ -244,12 +245,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | student financial advisor | add notes on a contact                    | easily remember details about them                     |
 | `* * *`  | student financial advisor | remove notes on a contact                 | keep notes clean and updated                           |
 | `* * *`  | student financial advisor | add which circle an individual belongs to | easily classify my professional relationship with them |
+| `* * *`  | student financial advisor | remove a circle from a contact            | keep relationship categories accurate                  |
+| `* *`    | student financial advisor | filter contacts by circle                 | view contacts by relationship type quickly             |
 | `* * *`  | student financial advisor | add a follow up date                      | see who I have met and are going to meet               |
 | `* * *`  | student financial advisor | see who I have upcoming follow ups with   | see who I am supposed to meet up soon                  |
+| `* * *`  | student financial advisor | remove a follow up date                   | keep follow-up records accurate                        |
 | `* *`    | student financial advisor | find contacts by notes keyword            | locate someone by remembered context                   |
 | `* *`    | student financial advisor | list contacts filtered by tag             | target a group easily                                  |
 | `* *`    | student financial advisor | sort contacts by name                     | scan large lists more easily                           |
 | `* *`    | user                      | see usage instructions/help               | refer to commands when I forget how to use the app     |
+| `*`      | user                      | clear all contacts                        | reset the address book quickly when needed             |
+| `*`      | user                      | exit the app quickly                      | close the application conveniently                     |
 | `*`      | student financial advisor | log interactions with a contact           | track engagement history                               |
 | `*`      | student financial advisor | set follow-up dates / reminders           | avoid forgetting to check in                           |
 
@@ -583,8 +589,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 Given below are instructions to test the app manually.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** These instructions only provide a starting point for testers. Testers are expected to do more *exploratory* testing.
 
 </div>
 
