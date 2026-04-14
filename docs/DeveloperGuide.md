@@ -351,7 +351,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. User input is invalid (e.g., invalid phone/email format).
+* 2a. User input is invalid (e.g. invalid phone/email format).
 
     * 2a1. FAM shows an error message.
 
@@ -526,7 +526,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. User already has a followup date.
 
-    Use case resumes at step 2.
+    * 1b1. If the new date is the same as the existing date, FAM shows an error message.
+
+      Use case ends.
+
+    * 1b2. If the new date is different, FAM replaces it and shows a success message.
+
+      Use case ends.
 
 * 1c. User inputs a followup date that has passed.
 
