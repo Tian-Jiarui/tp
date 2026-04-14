@@ -493,6 +493,7 @@ Format: `exit`
 FAM conveniently auto-saves your data after every command, so you never have to worry about saving manually.
 
 If you wish to view or edit your data, you can access the file at:
+
 `[JAR file location]/data/addressbook.json`
 
 ### Editing the data file
@@ -565,7 +566,7 @@ until the file has been fixed.
 | **Circle** | No | Must be `client`, `prospect`, or `friend`, case-insensitive                                                                                                                | No      | Yes | Yes | Each contact can only have one circle.                                              |
 | **Note** | No | Accepts any value, max 1000 characters total                                                                                                                               | No      | Yes | Yes | Can only be added via `note` and removed via `noteclear`, visible only in View Mode |
 | **Follow-up Date** | No | Format: `YYYY-MM-DD`, must be a valid calendar date                                                                                                                        | No      | Yes | Yes | Warning shown if date is in the past                                                |
-| **Tag** | No | 1–20 characters per tag, alphanumeric or hyphens only, no spaces, case-insensitive                                                                                         | No      | Yes | Yes | Max 5 tags per contact, tag cannot be duplicated for the same contact               |
+| **Tag** | No | 1–20 characters per tag, alphanumeric or hyphens only, no spaces, case-insensitive                                                                                         | No      | Yes | Yes | Max 5 tags per contact, tag name for the same contact must be unique                |
 
 <div markdown="span" class="alert alert-info">
 
