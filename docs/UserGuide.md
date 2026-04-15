@@ -261,12 +261,13 @@ While in View Mode:
 ### Deleting a contact : `delete`
 
 Deletes the specified contact from the address book.
-
 Format: `delete INDEX`
 
 * Deletes the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** `1, 2, 3, …`  and be within the valid range of the current displayed list of contacts.
 * In [view mode](#view-mode), the index of the displayed contact is always `1`.
 * A **confirmation message** will be shown before deletion. You will need to click `OK` to confirm the deletion. This action is irreversible.
+
+![Delete confirmation](images/DeleteConfirmMsg.png)
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd contact in the address book.
@@ -336,7 +337,10 @@ Format: `note INDEX note/NOTE`
 <div markdown="span" class="alert alert-info">
 
 :information_source: **Note:** After adding the first note, subsequent notes will be appended with a pipe ` | `,
-which also counts toward the 1000-character limit.
+which also counts toward the 1000-character limit. Refer to image below for example.
+
+![Note Pipe](images/NotePipe.png)
+3 notes being added one after another, with pipes ` | ` separating them.
 
 </div>
 
@@ -494,9 +498,11 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the address book. 
 
 Format: `clear`
+
+* A **confirmation message** will be shown before the clearing of all contacts. You will need to click `OK` to confirm the execution. This action is irreversible.
 
 ### Exiting the program : `exit`
 
